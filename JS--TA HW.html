@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>簡單計算機</title>
+</head>
+<body>
+
+<h1>簡單計算機</h1>
+
+<script>
+  // 函數：加法
+  function add(a, b) {
+    return a + b;
+  }
+
+  // 函數：減法
+  function subtract(a, b) {
+    return a - b;
+  }
+
+  // 函數：乘法
+  function multiply(a, b) {
+    return a * b;
+  }
+
+  // 函數：除法
+  function divide(a, b) {
+    if (b === 0) {
+      throw new Error('除數不能為零');
+    }
+    return a / b;
+  }
+
+  // 函數：計算並顯示結果
+  function calculate() {
+    let continueCalculation = true;
+
+    while (continueCalculation) {
+      const num1 = parseFloat(window.prompt('請輸入第一個數字：'));
+      if (isNaN(num1)) {
+        window.alert('請輸入有效的數字');
+        continue;
+      }
+
+      const num2 = parseFloat(window.prompt('請輸入第二個數字：'));
+      if (isNaN(num2)) {
+        window.alert('請輸入有效的數字');
+        continue;
+      }
+
+      const operation = window.prompt('請選擇操作：加法(+), 減法(-), 乘法(*), 除法(/)');
+      let result;
+
+      switch (operation) {
+        case '+':
+          result = add(num1, num2);
+          break;
+        case '-':
+          result = subtract(num1, num2);
+          break;
+        case '*':
+          result = multiply(num1, num2);
+          break;
+        case '/':
+          try {
+            result = divide(num1, num2);
+          } catch (error) {
+            window.alert('Error: ' + error.message);
+            continue;
+          }
+          break;
+        default:
+          window.alert('請輸入有效的操作符：+、-、* 或 /');
+          continue;
+      }
+
+      window.alert('計算結果：' + result);
+
+      const continueInput = window.prompt('是否要繼續計算？(是/否)').toLowerCase();
+      if (continueInput !== '是' && continueInput !== 'yes') {
+        continueCalculation = false;
+      }
+    }
+  }
+
+  // 啟動計算
+  calculate();
+</script>
+
+</body>
+</html>
