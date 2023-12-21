@@ -2,91 +2,99 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>簡單計算機</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>你的計算機</title>
 </head>
 <body>
 
-<h1>簡單計算機</h1>
-
-<script>
-  // 函數：加法
-  function add(a, b) {
-    return a + b;
-  }
-
-  // 函數：減法
-  function subtract(a, b) {
-    return a - b;
-  }
-
-  // 函數：乘法
-  function multiply(a, b) {
-    return a * b;
-  }
-
-  // 函數：除法
-  function divide(a, b) {
-    if (b === 0) {
-      throw new Error('除數不能為零');
+  <script>
+    // 函數用於執行基本的加法運算
+    function add(num1, num2) {
+      return num1 + num2;
     }
-    return a / b;
-  }
 
-  // 函數：計算並顯示結果
-  function calculate() {
-    let continueCalculation = true;
+    // 函數用於執行基本的減法運算
+    function subtract(num1, num2) {
+      return num1 - num2;
+    }
 
-    while (continueCalculation) {
-      const num1 = parseFloat(window.prompt('請輸入第一個數字：'));
-      if (isNaN(num1)) {
-        window.alert('請輸入有效的數字');
-        continue;
+    // 函數用於執行基本的乘法運算
+    function multiply(num1, num2) {
+      return num1 * num2;
+    }
+
+    // 函數用於執行基本的除法運算，並檢查除數是否為零
+    function divide(num1, num2) {
+      if (num2 === 0) {
+        return "Error: Division by zero is not allowed!";
+      } else {
+        return num1 / num2;
       }
+    }
 
-      const num2 = parseFloat(window.prompt('請輸入第二個數字：'));
-      if (isNaN(num2)) {
-        window.alert('請輸入有效的數字');
-        continue;
-      }
+    // 函數用於獲取使用者輸入並進行計算
+    function calculate() {
+      // 循環允許進行多次計算
+      while (true) {
+        // 獲取用戶輸入的數字和運算符號
+        let num1 = parseFloat(prompt("請輸入第一個數字:"));
 
-      const operation = window.prompt('請選擇操作：加法(+), 減法(-), 乘法(*), 除法(/)');
-      let result;
+        // 驗證第一個數字的輸入
+        while (isNaN(num1)) {
+          alert("請輸入有效數字！");
+          num1 = parseFloat(prompt("請輸入第一個數字:"));
+        }
+        
+        let num2 = parseFloat(prompt("請輸入第二個數字:"));
 
-      switch (operation) {
-        case '+':
-          result = add(num1, num2);
-          break;
-        case '-':
-          result = subtract(num1, num2);
-          break;
-        case '*':
-          result = multiply(num1, num2);
-          break;
-        case '/':
-          try {
+        // 驗證第二個數字的輸入
+        while (isNaN(num2)) {
+          alert("請輸入有效數字！");
+          num2 = parseFloat(prompt("請輸入第二個數字:"));
+        }
+
+        let operation = prompt("請選擇運算符號（+、-、*、/）:");
+
+        // 驗證運算符號的輸入
+        while (!["+", "-", "*", "/"].includes(operation)) {
+          alert("請輸入有效的運算符號！");
+          operation = prompt("請選擇運算符號（+、-、*、/）:");
+        }
+
+        // 基於選擇的運算符號進行計算
+        let result;
+        switch (operation) {
+          case "+":
+            result = add(num1, num2);
+            break;
+          case "-":
+            result = subtract(num1, num2);
+            break;
+          case "*":
+            result = multiply(num1, num2);
+            break;
+          case "/":
             result = divide(num1, num2);
-          } catch (error) {
-            window.alert('Error: ' + error.message);
-            continue;
-          }
+            break;
+          default:
+            result = "錯誤: 非法的運算！";
+        }
+
+        // 顯示計算結果
+        alert("計算結果為: " + result);
+
+        // 問用戶是否要進行另一次計算
+        let continueCalculation = prompt("是否要進行另一次計算？（是/否）:");
+
+        if (continueCalculation.toLowerCase() !== "是") {
           break;
-        default:
-          window.alert('請輸入有效的操作符：+、-、* 或 /');
-          continue;
-      }
-
-      window.alert('計算結果：' + result);
-
-      const continueInput = window.prompt('是否要繼續計算？(是/否)').toLowerCase();
-      if (continueInput !== '是' && continueInput !== 'yes') {
-        continueCalculation = false;
+        }
       }
     }
-  }
 
-  // 啟動計算
-  calculate();
-</script>
+    // 呼叫calculate函數以啟動程式
+    calculate();
+  </script>
 
 </body>
 </html>
